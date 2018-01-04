@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>登录</title>
+    <link rel="stylesheet" href="../css/basic.css">
+    <link rel="stylesheet" href="../css/frozen.css">
+    <link rel="stylesheet" href="../css/zLuo.css">
+</head>
+<style>
+    .logo {
+        padding-top: .45rem;
+        padding-bottom: .3rem;
+        width: 100%;
+        
+    }
+    .g-row>section {
+        padding-left: .3rem;
+        padding-right: .3rem;
+    }
+    .cell-inp {
+        box-sizing: border-box;
+        margin-top: .3rem;
+        padding-bottom: .3rem;
+        border-bottom: 1px solid #e1e1e1;
+    }
+    .cell-inp>input {
+        line-height: .26rem;
+        margin-left: .3rem;
+        padding-top: .2rem;
+        padding-bottom: .2rem;
+    }
+    .cell-inp>span {
+        width: .47rem;
+        height: .66rem;
+        font-size: 0;
+    }
+    .cell-inp i.phone {
+        display: inline-block;
+        width: .27rem;
+        height: .36rem;
+        background: url(../img/login-phone.png) no-repeat center/cover;
+    }
+    .cell-inp i.code {
+        display: inline-block;
+        width: .33rem;
+        height: .36rem;
+        background: url(../img/login-verCode.png) no-repeat center/cover;
+    }
+    .btn-code {
+        margin-left: .6rem;
+        width: 2rem;
+        line-height: .7rem;
+        text-align: center;
+        color: #fff;
+        background-color: #c6d7f7;
+        border-radius: 4px;
+
+    }
+    .submit {
+        margin-top: 1.08rem;
+        line-height: .9rem;
+        text-align: center;
+        color: #fff;
+    }
+</style>
+
+<body ontouchstart="">
+    <div class="g-row">
+        <header class="logo ui-flex ui-flex-pack-center ui-flex-align-center">
+            <img src="../img/logo-login.png" alt="">
+        </header>
+        <section>
+            <div class="cell-inp ui-flex  ui-flex-align-center">
+                <span class="ui-flex ui-flex-pack-center ui-flex-align-center">
+                    <i class="phone"></i>
+                </span>
+                <input class="phoneInp f-fs-26" type="text" placeholder="请输入手机号码">
+            </div>
+            <div class="cell-inp ui-flex  ui-flex-align-center">
+                <span class="ui-flex ui-flex-pack-center ui-flex-align-center">
+                    <i class="code"></i>
+                </span>
+                <input class="codeInp f-fs-26" type="text" placeholder="请输入验证码">
+                <div class="btn-code f-fs-26">
+                    获取验证码
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="submit f-bgColor-578 f-fs-26 f-bor-rad">
+                登录
+            </div>
+        </section>
+        
+    </div>
+    <script src="../js/rem.js"></script>
+    <script src="../lib/zepto.min.js"></script>
+    <script src="../js/frozen.js"></script>
+    <script>
+        !function() {
+            var app = function() {
+                this.data = {
+                    phoneNum: 0,
+                    verCode: 0
+                };
+                this.phoneInp = $('.phoneInp').eq(0);
+                this.codeInp = $('.codeInp').eq(0);
+                this._bindEvent();
+            }
+            app.prototype = {
+                _bindEvent: function() {
+                    var self = this;
+                    this.phoneInp.on('input',function() {
+                        self.data.phoneNum = self.phoneInp.val()
+                        console.log(self.data.phoneNum)
+                    })
+                    
+                }
+            }
+
+            var init = new app()
+
+            
+        }(window);
+    </script>
+</body>
+
+</html>
