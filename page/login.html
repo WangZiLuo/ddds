@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+<head> 
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
@@ -16,6 +16,9 @@
         padding-bottom: .3rem;
         width: 100%;
         
+    }
+    .g-row {
+        background-color: #fff;
     }
     .g-row>section {
         padding-left: .3rem;
@@ -32,6 +35,7 @@
         margin-left: .3rem;
         padding-top: .2rem;
         padding-bottom: .2rem;
+        background-color: #fff;
     }
     .cell-inp>span {
         width: .47rem;
@@ -66,9 +70,12 @@
         text-align: center;
         color: #fff;
     }
+    .on {
+        background-color: #578ff7;
+    }
 </style>
 
-<body ontouchstart="">
+<body>
     <div class="g-row">
         <header class="logo ui-flex ui-flex-pack-center ui-flex-align-center">
             <img src="../img/logo-login.png" alt="">
@@ -78,7 +85,7 @@
                 <span class="ui-flex ui-flex-pack-center ui-flex-align-center">
                     <i class="phone"></i>
                 </span>
-                <input class="phoneInp f-fs-26" type="text" placeholder="请输入手机号码">
+                <input class="phoneInp f-fs-26" type="phone" placeholder="请输入手机号码">
             </div>
             <div class="cell-inp ui-flex  ui-flex-align-center">
                 <span class="ui-flex ui-flex-pack-center ui-flex-align-center">
@@ -104,11 +111,14 @@
         !function() {
             var app = function() {
                 this.data = {
-                    phoneNum: 0,
-                    verCode: 0
+                    phoneNum: '',
+                    verCode: ''
                 };
+                this.COUNT = 60;
                 this.phoneInp = $('.phoneInp').eq(0);
                 this.codeInp = $('.codeInp').eq(0);
+                this.codeBtn = $('.btn-code').eq(0);
+                this.submitBtn = $('.submit').eq(0);
                 this._bindEvent();
             }
             app.prototype = {
@@ -116,13 +126,88 @@
                     var self = this;
                     this.phoneInp.on('input',function() {
                         self.data.phoneNum = self.phoneInp.val()
-                        console.log(self.data.phoneNum)
+                        self.data.phoneNum.length == 11 ? self.codeBtn.addClass('on') : ''
                     })
-                    
+                    this.codeInp.on('input',function() {
+                        if(self.data.phoneNum == '') {
+                            self.codeInp.val('');
+                            el=$.tips({
+                                content:'请输入手机号',
+                                stayTime:2000,
+                                type:"warn"
+                            })
+                        } else {
+                            self.data.phoneNum = self.phoneInp.val()
+                        }
+                    })
+                    this.codeBtn.on('tap',function() {
+                        if( !self.codeBtn.hasClass('on') ) {
+                            return false
+                        }
+                        if( !(/^1[0-9]{10}$/.test(self.data.phoneNum)) ) {
+                            el=$.tips({
+                                content:'手机号码不正确',
+                                stayTime:2000,
+                                type:"warn"
+                            })
+                            return false
+                        }
+                        //这里写验证码请求
+                        //
+                        //self.data.verCode = 请求返的啥? 你是不是傻
+                        self.codeBtn.removeClass('on')
+                        self.countdown()
+                    })
+                    this.submitBtn.on('tap',function() {
+                        if(self.phoneInp.val() == '') {
+                            el=$.tips({
+                                content:'请输入手机号',
+                                stayTime:2000,
+                                type:"warn"
+                            })
+                            return false
+                        }
+                        if(self.codeInp.val() == '') {
+                            el=$.tips({
+                                content:'请输入验证码',
+                                stayTime:2000,
+                                type:"warn"
+                            })
+                            return false
+                        }
+                        if( self.codeInp.val()!=''&&self.data.verCode==self.codeInp.val() ) {
+                            //  这里写登录请求   你是不是啥
+                            //
+                            //
+
+                        } else {
+                            el=$.tips({
+                                content:'验证码不正确',
+                                stayTime:2000,
+                                type:"warn"
+                            })
+                            return false
+                        }
+                    })
+                },
+                countdown: function() {
+                    var self = this;
+                    setTimeout(function() {
+                        self.codeBtn.html(self.COUNT+"s后重发");
+                        if(self.COUNT==0) {
+                            self.codeBtn.html("获取验证码");
+                            self.data.phoneNum.length == 11 ? self.codeBtn.addClass('on') : ''
+                            self.COUNT = 60;
+                            return
+                        } {
+                            self.COUNT--;
+                            self.countdown()
+                        } 
+                    },1000)
                 }
             }
 
-            var init = new app()
+            new app()
 
             
         }(window);
