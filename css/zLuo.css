@@ -329,6 +329,10 @@ text {
             align-items: center;
 }
 
+.fs-38 {
+    font-size: .38rem;
+}
+
 .fs-34 {
     font-size: .34rem;
 }
@@ -351,6 +355,10 @@ text {
 
 .fs-22 {
     font-size: .22rem;
+}
+
+.fs-20 {
+    font-size: .2rem;
 }
 
 .fs-16 {

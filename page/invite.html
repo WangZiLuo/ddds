@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>邀请好友</title>
+    <link rel="stylesheet" href="../css/basic.css">
+    <link rel="stylesheet" href="../css/frozen.css">
+    <link rel="stylesheet" href="../css/zLuo.css">
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body>
+    <div class="g-row invite">
+        <section>
+            <div class="m-content f-flex-cc">
+                <div class="hold">
+                    <img src="../img/invite-bg.png" alt="">
+                    <div class="code f-flex-cc">
+                        <img src="../img/code.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="m-btn">
+                <div class="btn fs-30">
+                    立即邀请
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="m-popup">
+                <div class="popup">
+                    <p class="title fs-30">查看分享规则</p>
+                    <div class="arrow"></div>
+                </div>
+                <div class="content">
+                    <p class="title fs-30">
+                        邀请规则
+                    </p>
+                    <p class="fs-26">
+                        1.通二维码分享出去后，被分享人通过二维码关注公众号成为粉丝后，即成为下级分销商。
+                    </p>
+                    <p class="fs-26">
+                        2、分销商通过分享首页链接到朋友圈，用户通
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <script src="../js/rem.js"></script>
+    <script src="../lib/zepto.min.js"></script>
+    <script src="../js/frozen.js"></script>
+    <script>
+        !function () {
+            var app = function () {
+                this.popupEle = $('.m-popup').eq(0);
+                this.popupTap = $('.popup').eq(0);
+                this._bindEvent();
+            }
+            app.prototype = {
+                _bindEvent: function() {
+                    var self = this;
+                    this.popupTap.on('tap', function() {
+                        if( self.popupEle.hasClass('up') ) {
+                            self.popupEle.removeClass('up')
+                        } else {
+                            self.popupEle.addClass('up')
+                        }
+                    })
+                }
+
+
+            }
+
+            new app()
+
+
+        }(window);
+    </script>
+</body>
+
+</html>

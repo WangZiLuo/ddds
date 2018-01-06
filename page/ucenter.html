@@ -5,82 +5,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
-    <title>登录</title>
+    <title>我的</title>
     <link rel="stylesheet" href="../css/basic.css">
     <link rel="stylesheet" href="../css/frozen.css">
     <link rel="stylesheet" href="../css/zLuo.css">
+    <link rel="stylesheet" href="../css/main.css">
 </head>
-<style>
-    .g-row {
-        background-color: #fff;
-    }
-
-    header {
-        background: -webkit-gradient(linear, left top, left bottom, from(#598df7), to(#695ef7));
-    }
-
-    .avatarHold {
-        box-sizing: border-box;
-        padding-left: .3rem;
-        padding-right: .3rem;
-        width: 7.5rem;
-        height: 1.92rem;
-    }
-
-    .avatar .hold {
-        width: 1rem;
-        height: 1rem;
-        border-radius: 50%;
-        overflow: hidden;
-    }
-
-    .hold>img {
-        width: 100%;
-        height: 100%;
-    }
-
-    .nickName {
-        padding-left: .28rem;
-        color: #fff;
-    }
-
-    .signIn {
-        padding-left: .22rem;
-        padding-right: .22rem;
-        line-height: .54rem;
-        color: #fff;
-        border: 1px solid #fff;
-        border-radius: .21rem;
-    }
-    .navList p.fs-26 {
-        padding-left: .09rem;
-        line-height: .36rem;
-        color: #fff;
-    }
-    .navList p.fs-24 {
-        line-height: .84rem;
-        color: #fff;
-    }
-    .integral {
-        width: .26rem;
-        height: .32rem;
-        background: url(../img/integral.png) no-repeat center/cover;
-    }
-    .recharge {
-        width: .32rem;
-        height: .32rem;
-        background: url(../img/recharge.png) no-repeat center/cover;
-    }
-    .coupon {
-        width: .33rem;
-        height: .24rem;
-        background: url(../img/coupon.png) no-repeat center/cover;
-    }
-</style>
 
 <body>
-    <div class="g-row">
-        <header>
+    <div class="g-row ucenter">
+        <header class="ucenter-bg">
             <div class="m-topNav">
                 <div class="avatarHold f-flex-wrap">
                     <div class="avatar f-flex-wrap">
@@ -133,101 +67,10 @@
     <script>
         !function () {
             var app = function () {
-                this.data = {
-                    phoneNum: '',
-                    verCode: ''
-                };
-                this.COUNT = 60;
-                this.phoneInp = $('.phoneInp').eq(0);
-                this.codeInp = $('.codeInp').eq(0);
-                this.codeBtn = $('.btn-code').eq(0);
-                this.submitBtn = $('.submit').eq(0);
-                this._bindEvent();
+                
             }
             app.prototype = {
-                _bindEvent: function () {
-                    var self = this;
-                    this.phoneInp.on('input', function () {
-                        self.data.phoneNum = self.phoneInp.val()
-                        self.data.phoneNum.length == 11 ? self.codeBtn.addClass('on') : ''
-                    })
-                    this.codeInp.on('input', function () {
-                        if (self.data.phoneNum == '') {
-                            self.codeInp.val('');
-                            el = $.tips({
-                                content: '请输入手机号',
-                                stayTime: 2000,
-                                type: "warn"
-                            })
-                        } else {
-                            self.data.phoneNum = self.phoneInp.val()
-                        }
-                    })
-                    this.codeBtn.on('tap', function () {
-                        if (!self.codeBtn.hasClass('on')) {
-                            return false
-                        }
-                        if (!(/^1[0-9]{10}$/.test(self.data.phoneNum))) {
-                            el = $.tips({
-                                content: '手机号码不正确',
-                                stayTime: 2000,
-                                type: "warn"
-                            })
-                            return false
-                        }
-                        //这里写验证码请求
-                        //
-                        //self.data.verCode = 请求返的啥? 你是不是傻
-                        self.codeBtn.removeClass('on')
-                        self.countdown()
-                    })
-                    this.submitBtn.on('tap', function () {
-                        if (self.phoneInp.val() == '') {
-                            el = $.tips({
-                                content: '请输入手机号',
-                                stayTime: 2000,
-                                type: "warn"
-                            })
-                            return false
-                        }
-                        if (self.codeInp.val() == '') {
-                            el = $.tips({
-                                content: '请输入验证码',
-                                stayTime: 2000,
-                                type: "warn"
-                            })
-                            return false
-                        }
-                        if (self.codeInp.val() != '' && self.data.verCode == self.codeInp.val()) {
-                            //  这里写登录请求   你是不是啥
-                            //
-                            //
-
-                        } else {
-                            el = $.tips({
-                                content: '验证码不正确',
-                                stayTime: 2000,
-                                type: "warn"
-                            })
-                            return false
-                        }
-                    })
-                },
-                countdown: function () {
-                    var self = this;
-                    setTimeout(function () {
-                        self.codeBtn.html(self.COUNT + "s后重发");
-                        if (self.COUNT == 0) {
-                            self.codeBtn.html("获取验证码");
-                            self.data.phoneNum.length == 11 ? self.codeBtn.addClass('on') : ''
-                            self.COUNT = 60;
-                            return
-                        } {
-                            self.COUNT--;
-                            self.countdown()
-                        }
-                    }, 1000)
-                }
+                
             }
 
             new app()
