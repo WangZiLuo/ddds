@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
-    <title>登录</title>
+    <title>提现</title>
     <link rel="stylesheet" href="../css/basic.css">
     <link rel="stylesheet" href="../css/frozen.css">
     <link rel="stylesheet" href="../css/zLuo.css">
@@ -13,31 +13,30 @@
 </head>
 
 <body>
-    <div class="g-row login">
-        <header class="logo ui-flex ui-flex-pack-center ui-flex-align-center">
-            <img src="../img/logo-login.png" alt="">
-        </header>
-        <section>
-            <div class="cell-inp ui-flex  ui-flex-align-center">
-                <span class="ui-flex ui-flex-pack-center ui-flex-align-center">
-                    <i class="phone"></i>
+    <div class="g-row withdraw">
+        
+        <section class="hold">
+            <div class="cell  f-flex-wrap">
+                <span class="fs-28">
+                    选择申请提现到
                 </span>
-                <input class="phoneInp fs-26" type="phone" placeholder="请输入手机号码">
+                <i class="link"></i>
             </div>
-            <div class="cell-inp ui-flex  ui-flex-align-center">
-                <span class="ui-flex ui-flex-pack-center ui-flex-align-center">
-                    <i class="code"></i>
-                </span>
-                <input class="codeInp fs-26" type="text" placeholder="请输入验证码">
-                <div class="btn-code fs-26">
-                    获取验证码
+            <div class="cell-inp">
+                <p class="fs-28">
+                    提现金额 (元)
+                </p>
+                <div class="widInp f-flex-fs-c">
+                    <span class="fs-36">￥</span>
+                    <input class="fs-28" type="text" placeholder="最高可提现100元">
+                </div>
+                <div class="submit f-bgColor-578 fs-28 f-bor-rad">
+                    提现
                 </div>
             </div>
         </section>
         <section>
-            <div class="submit f-bgColor-578 fs-26 f-bor-rad">
-                登录
-            </div>
+            
         </section>
         
     </div>

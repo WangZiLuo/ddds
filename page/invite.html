@@ -41,15 +41,50 @@
                     <p class="title fs-30">
                         邀请规则
                     </p>
-                    <p class="fs-26">
-                        1.通二维码分享出去后，被分享人通过二维码关注公众号成为粉丝后，即成为下级分销商。
-                    </p>
-                    <p class="fs-26">
-                        2、分销商通过分享首页链接到朋友圈，用户通
-                    </p>
+                    <div class="ui-scroller">
+                        <ul>
+                            <li class="fs-26">
+                                1.通二维码分享出去后，被分享人通过二维码关注公众号成为粉丝后，即成为下级分销商。
+                            </li>
+                            <li class="fs-26">
+                                2、分销商通过分享首页链接到朋友圈，用户通
+                            </li>
+                            <li class="fs-26">
+                                1.通二维码分享出去后，被分享人通过二维码关注公众号成为粉丝后，即成为下级分销商。
+                            </li>
+                            <li class="fs-26">
+                                2、分销商通过分享首页链接到朋友圈，用户通
+                            </li>
+                            <li class="fs-26">
+                                1.通二维码分享出去后，被分享人通过二维码关注公众号成为粉丝后，即成为下级分销商。
+                            </li>
+                            <li class="fs-26">
+                                2、分销商通过分享首页链接到朋友圈，用户通
+                            </li>
+                            <li class="fs-26">
+                                1.通二维码分享出去后，被分享人通过二维码关注公众号成为粉丝后，即成为下级分销商。
+                            </li>
+                            <li class="fs-26">
+                                2、分销商通过分享首页链接到朋友圈，用户通
+                            </li>
+                            <li class="fs-26">
+                                1.通二维码分享出去后，被分享人通过二维码关注公众号成为粉丝后，即成为下级分销商。
+                            </li>
+                            <li class="fs-26">
+                                2、分销商通过分享首页链接到朋友圈，用户通
+                            </li>
+                            <li class="fs-26">
+                                1.通二维码分享出去后，被分享人通过二维码关注公众号成为粉丝后，即成为下级分销商。
+                            </li>
+                            <li class="fs-26">
+                                2、分销商通过分享首页链接到朋友圈，用户通
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
+        <div class="wx-share-mask"></div>
 
     </div>
     <script src="../js/rem.js"></script>
@@ -57,9 +92,13 @@
     <script src="../js/frozen.js"></script>
     <script>
         !function () {
-            var app = function () {
+            
+            var app = function() {
                 this.popupEle = $('.m-popup').eq(0);
                 this.popupTap = $('.popup').eq(0);
+                this.popupMask = $('.popup-mask').eq(0);
+                this.shareBtn = $('.btn');
+                this.shareMask = $('.wx-share-mask');
                 this._bindEvent();
             }
             app.prototype = {
@@ -68,16 +107,56 @@
                     this.popupTap.on('tap', function() {
                         if( self.popupEle.hasClass('up') ) {
                             self.popupEle.removeClass('up')
+                            Mask.hidden()
                         } else {
                             self.popupEle.addClass('up')
+                            Mask.show()
                         }
+                    });
+                    this.popupMask.on('tap', function() {
+                        if( self.popupMask.hasClass('mask-show') ) {
+                            Mask.hidden()
+                            self.popupEle.removeClass('up')
+                            self.shareMask.removeClass('mask-show')
+                        }
+                    });
+                    /* 
+                        邀请button的tap事件
+                    */
+                    this.shareBtn.on('tap', function() {
+                        Mask.show()
+                        self.shareMask.addClass('mask-show')
                     })
                 }
-
-
+            }
+            /* 
+                弹出层构建函数
+            */
+            var mask = function() {
+                this.maskTpl = '<div class="zl popup-mask">' + '</div>',
+                this._append()
+            }
+            mask.prototype = {
+                _append: function() {
+                    if( !$('.popup-mask').length ) {
+                        $('.g-row').eq(0).append(this.maskTpl)
+                    }
+                },
+                show: function() {
+                    if ( $('.popup-mask').length ) {
+                        $('.popup-mask').addClass('mask-show')
+                    }
+                },
+                hidden: function() {
+                    if ( $('.mask-show').length ) {
+                        $('.mask-show').removeClass('mask-show')
+                    }
+                }
             }
 
+            var Mask = new mask()
             new app()
+            
 
 
         }(window);

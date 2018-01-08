@@ -53,12 +53,114 @@
                 </div>
             </div>
         </header>
-        <section>
 
+        <section>
+            <div class="orderLink f-flex-wrap">
+                <div class="fs-28">我的订单</div>
+                <div class="fs-28 f-flex">
+                    <p>查看全部订单</p>
+                    <i class="link"></i>
+                </div>
+            </div>
+            <ul class="topIcon f-flex-wrap">
+                <li data-parameter="nosend" class="item f-flex-col">
+                    <img src="../img/nosend.png" alt="">
+                    <p class="fs-24">待配送</p>
+                </li>
+                <li data-parameter="sending" class="item f-flex-col">
+                    <img src="../img/sending.png" alt="">
+                    <p class="fs-24">配送中</p>
+                </li>
+                <li data-parameter="complete" class="item f-flex-col">
+                    <img src="../img/complete.png" alt="">
+                    <p class="fs-24">已完成</p>
+                </li>
+                <li data-parameter="orderAll" class="item f-flex-col">
+                    <img src="../img/order-all.png" alt="">
+                    <p class="fs-24">历史订单</p>
+                </li>
+            </ul>
         </section>
         <section>
-
+            <ul class="middleIcon f-flex-wrap">
+                <li data-parameter="waterTickets" class="item f-flex-col">
+                    <img src="../img/water-tickets.png" alt="">
+                    <p class="fs-24">水票</p>
+                </li>
+                <li data-parameter="deposit" class="item f-flex-col">
+                    <img src="../img/deposit.png" alt="">
+                    <p class="fs-24">押金</p>
+                </li>
+                <li data-parameter="returnPail" class="item f-flex-col">
+                    <img src="../img/return-pail.png" alt="">
+                    <p class="fs-24">退桶</p>
+                </li>
+                <li data-parameter="address" class="item f-flex-col">
+                    <img src="../img/address.png" alt="">
+                    <p class="fs-24">地址</p>
+                </li>
+            </ul>
         </section>
+        <section>
+            <ul class="bottIcon f-flex-wrap">
+                <li data-parameter="invoice" class="item f-flex-col">
+                    <img src="../img/invoice.png" alt="">
+                    <p class="fs-24">发票</p>
+                </li>
+                <li data-parameter="recommend" class="item f-flex-col">
+                    <img src="../img/recommend.png" alt="">
+                    <p class="fs-24">推荐</p>
+                </li>
+                <li data-parameter="community" class="item f-flex-col">
+                    <img src="../img/community.png" alt="">
+                    <p class="fs-24">社区</p>
+                </li>
+                <li data-parameter="activity" class="item f-flex-col">
+                    <img src="../img/activity.png" alt="">
+                    <p class="fs-24">活动</p>
+                </li>
+                <li data-parameter="feedback" class="item f-flex-col">
+                    <img src="../img/feedback.png" alt="">
+                    <p class="fs-24">反馈</p>
+                </li>
+                <li data-parameter="deliveryStaff" class="item f-flex-col">
+                    <img src="../img/delivery-staff.png" alt="">
+                    <p class="fs-24">配送员</p>
+                </li>
+                <li data-parameter="set" class="item f-flex-col">
+                    <img src="../img/set.png" alt="">
+                    <p class="fs-24">设置</p>
+                </li>
+                <li data-parameter="service" class="item f-flex-col">
+                    <img src="../img/service.png" alt="">
+                    <p class="fs-24">客服</p>
+                </li>
+            </ul>
+        </section>
+        <footer>
+            <ul class="footerNav f-flex-sa-c">
+                <li data-parameter="home" class="item f-flex-col">
+                    <img src="../img/home.png" alt="">
+                    <p class="fs-22">首页</p>
+                </li>
+                <li data-parameter="cart" class="item f-flex-col">
+                    <img src="../img/cart.png" alt="">
+                    <p class="fs-22">购物车</p>
+                </li>
+                <li data-parameter="order" class="item f-flex-col">
+                    <img src="../img/order.png" alt="">
+                    <p class="fs-22">订单</p>
+                </li>
+                <li data-parameter="pointsMall" class="item f-flex-col">
+                    <img src="../img/points-mall.png" alt="">
+                    <p class="fs-24">积分商城</p>
+                </li>
+                <li data-parameter="ucenter" class="item active f-flex-col">
+                    <img src="../img/ucenter-active.png" alt="">
+                    <p class="fs-22">我的</p>
+                </li>
+            </ul>
+        </footer>
 
     </div>
     <script src="../js/rem.js"></script>
@@ -67,10 +169,17 @@
     <script>
         !function () {
             var app = function () {
-                
+                this.navItem = $('.item');
+                this._bindEvent();
             }
             app.prototype = {
-                
+                _bindEvent: function () {
+                    this.navItem.on('tap', function () {
+                        //跳页参数
+                        console.log($(this).data('parameter'))
+
+                    })
+                }
             }
 
             new app()

@@ -333,6 +333,10 @@ text {
     font-size: .38rem;
 }
 
+.fs-36 {
+    font-size: .36rem;
+}
+
 .fs-34 {
     font-size: .34rem;
 }
@@ -373,7 +377,9 @@ text {
 .border-das {
     border: 1px dashed #333;
 }
-
+.f-bor-rad {
+    border-radius: 4px;
+}
 .text-ell {
     white-space: nowrap;
     text-overflow: ellipsis;

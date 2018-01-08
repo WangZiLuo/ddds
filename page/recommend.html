@@ -38,19 +38,19 @@
         </section>
         <section>
             <div class="m-bottomNav f-flex-wrap">
-                <div class="navItem">
+                <div data-parameter="invite" class="navItem">
                     <div class="hold">
                         <img src="../img/invite.png" alt="">
                     </div>
                     <div class="fs-26">邀请好友</div>
                 </div>
-                <div class="navItem">
+                <div data-parameter="myRecommend" class="navItem">
                     <div class="hold">
                         <img src="../img/myRecommend.png" alt="">
                     </div>
                     <div class="fs-26">我的推荐</div>
                 </div>
-                <div class="navItem">
+                <div data-parameter="withdrawals" class="navItem">
                     <div class="hold">
                         <img src="../img/withdrawals.png" alt="">
                     </div>
@@ -66,10 +66,16 @@
     <script>
         !function () {
             var app = function () {
-                
+                this.navItem = $('.navItem');
+                this._bindEvent();
             }
             app.prototype = {
-                
+                _bindEvent: function() {
+                    this.navItem.on('tap', function() {
+                        console.log($(this).data('parameter'))
+                        
+                    })
+                }
             }
 
             new app()
