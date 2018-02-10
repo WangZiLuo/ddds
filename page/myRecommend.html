@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../css/frozen.css">
     <link rel="stylesheet" href="../css/zLuo.css">
     <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/dropload.css">
 </head>
 
 <body>
@@ -19,7 +20,7 @@
                 <p class="fs-28 text-ell">一级:&nbsp;&nbsp;200人</p>
                 <p class="fs-28 text-ell">二级:&nbsp;&nbsp;20000000000000000人</p>
             </div>
-        </header> 
+        </header>
         <section>
             <div class="m-content">
                 <ul>
@@ -29,10 +30,72 @@
                         </div>
                         <div class="recordContent">
                             <div class="name fs-24">
-                                <p class="rank">一级</p><p class="nickname">Amanda</p>
+                                <p class="rank">一级</p>
+                                <p class="nickname">Amanda</p>
                             </div>
                             <div class="info fs-28">
-                                <p class="year">推荐总积分:</p><p class="hour">1000</p>
+                                <p class="year">推荐总积分:</p>
+                                <p class="hour">1000</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="staffItem f-flex">
+                        <div class="hold">
+                            <img src="../img/avatar.jpg" alt="">
+                        </div>
+                        <div class="recordContent">
+                            <div class="name fs-24">
+                                <p class="rank">一级</p>
+                                <p class="nickname">Amanda</p>
+                            </div>
+                            <div class="info fs-28">
+                                <p class="year">推荐总积分:</p>
+                                <p class="hour">1000</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="staffItem f-flex">
+                        <div class="hold">
+                            <img src="../img/avatar.jpg" alt="">
+                        </div>
+                        <div class="recordContent">
+                            <div class="name fs-24">
+                                <p class="rank">一级</p>
+                                <p class="nickname">Amanda</p>
+                            </div>
+                            <div class="info fs-28">
+                                <p class="year">推荐总积分:</p>
+                                <p class="hour">1000</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="staffItem f-flex">
+                        <div class="hold">
+                            <img src="../img/avatar.jpg" alt="">
+                        </div>
+                        <div class="recordContent">
+                            <div class="name fs-24">
+                                <p class="rank">一级</p>
+                                <p class="nickname">Amanda</p>
+                            </div>
+                            <div class="info fs-28">
+                                <p class="year">推荐总积分:</p>
+                                <p class="hour">1000</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="staffItem f-flex">
+                        <div class="hold">
+                            <img src="../img/avatar.jpg" alt="">
+                        </div>
+                        <div class="recordContent">
+                            <div class="name fs-24">
+                                <p class="rank">一级</p>
+                                <p class="nickname">Amanda</p>
+                            </div>
+                            <div class="info fs-28">
+                                <p class="year">推荐总积分:</p>
+                                <p class="hour">1000</p>
                             </div>
                         </div>
                     </li>
@@ -43,13 +106,40 @@
     <script src="../js/rem.js"></script>
     <script src="../lib/zepto.min.js"></script>
     <script src="../js/frozen.js"></script>
+    <script src="../js/dropload.min.js"></script>
     <script>
         !function () {
             var app = function () {
-                
+                this._bindEvent()
             }
             app.prototype = {
-                
+                _bindEvent: function () {
+                    var self = this;
+                    $('.element').dropload({
+                        scrollArea: window,
+                        loadDownFn: function (me) {
+                            self.getData(me)
+
+                        }
+                    });
+                },
+                getData(me) {
+                    $.ajax({
+                        type: 'GET',
+                        url: 'json/more.json',
+                        dataType: 'json',
+                        success: function (data) {
+                            alert(data);
+                            // 每次数据加载完，必须重置
+                            me.resetload();
+                        },
+                        error: function (xhr, type) {
+                            alert('Ajax error!');
+                            // 即使加载出错，也得重置
+                            me.resetload();
+                        }
+                    });
+                }
             }
 
             new app()

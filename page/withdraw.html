@@ -16,11 +16,15 @@
     <div class="g-row withdraw">
         
         <section class="hold">
-            <div class="cell  f-flex-wrap">
+            <div class="choose cell  f-flex-wrap">
                 <span class="fs-28">
                     选择申请提现到
                 </span>
-                <i class="link"></i>
+                <div class="f-flex-wrap">
+                    <span class="way">微信</span>
+                    <i class="link"></i>
+                </div>
+                
             </div>
             <div class="cell-inp">
                 <p class="fs-28">
@@ -46,100 +50,27 @@
     <script>
         !function() {
             var app = function() {
-                this.data = {
-                    phoneNum: '',
-                    verCode: ''
-                };
-                this.COUNT = 60;
-                this.phoneInp = $('.phoneInp').eq(0);
-                this.codeInp = $('.codeInp').eq(0);
-                this.codeBtn = $('.btn-code').eq(0);
-                this.submitBtn = $('.submit').eq(0);
+                
+                this.wayEle = $('.way').eq(0);
+                this.chooseBtn = $('.choose').eq(0);
                 this._bindEvent();
+                this.isWay();
             }
             app.prototype = {
                 _bindEvent: function() {
                     var self = this;
-                    this.phoneInp.on('input',function() {
-                        self.data.phoneNum = self.phoneInp.val()
-                        self.data.phoneNum.length == 11 ? self.codeBtn.addClass('on') : ''
-                    })
-                    this.codeInp.on('input',function() {
-                        if(self.data.phoneNum == '') {
-                            self.codeInp.val('');
-                            el=$.tips({
-                                content:'请输入手机号',
-                                stayTime:2000,
-                                type:"warn"
-                            })
-                        } else {
-                            self.data.phoneNum = self.phoneInp.val()
-                        }
-                    })
-                    this.codeBtn.on('tap',function() {
-                        if( !self.codeBtn.hasClass('on') ) {
-                            return false
-                        }
-                        if( !(/^1[0-9]{10}$/.test(self.data.phoneNum)) ) {
-                            el=$.tips({
-                                content:'手机号码不正确',
-                                stayTime:2000,
-                                type:"warn"
-                            })
-                            return false
-                        }
-                        //这里写验证码请求
-                        //
-                        //self.data.verCode = 请求返的啥? 你是不是傻
-                        self.codeBtn.removeClass('on')
-                        self.countdown()
-                    })
-                    this.submitBtn.on('tap',function() {
-                        if(self.phoneInp.val() == '') {
-                            el=$.tips({
-                                content:'请输入手机号',
-                                stayTime:2000,
-                                type:"warn"
-                            })
-                            return false
-                        }
-                        if(self.codeInp.val() == '') {
-                            el=$.tips({
-                                content:'请输入验证码',
-                                stayTime:2000,
-                                type:"warn"
-                            })
-                            return false
-                        }
-                        if( self.codeInp.val()!=''&&self.data.verCode==self.codeInp.val() ) {
-                            //  这里写登录请求   你是不是啥
-                            //
-                            //
-
-                        } else {
-                            el=$.tips({
-                                content:'验证码不正确',
-                                stayTime:2000,
-                                type:"warn"
-                            })
-                            return false
-                        }
+                    
+                    this.chooseBtn.on('tap', function() {
+                        alert(1)
                     })
                 },
-                countdown: function() {
-                    var self = this;
-                    setTimeout(function() {
-                        self.codeBtn.html(self.COUNT+"s后重发");
-                        if(self.COUNT==0) {
-                            self.codeBtn.html("获取验证码");
-                            self.data.phoneNum.length == 11 ? self.codeBtn.addClass('on') : ''
-                            self.COUNT = 60;
-                            return
-                        } {
-                            self.COUNT--;
-                            self.countdown()
-                        } 
-                    },1000)
+                isWay: function() {
+                    //判断跳页接受的参数 赋给srt
+                    var srt
+                    this.changeWay(srt)
+                },
+                changeWay: function(srt) {
+                    this.wayEle.html(srt)
                 }
             }
 
