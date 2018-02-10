@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<head> 
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
@@ -14,17 +14,17 @@
 
 <body>
     <div class="g-row withdraw">
-        
+
         <section class="hold">
-            <div class="choose cell  f-flex-wrap">
+            <div class="choose cell f-flex-wrap">
                 <span class="fs-28">
                     选择申请提现到
                 </span>
                 <div class="f-flex-wrap">
-                    <span class="way">微信</span>
+                    <span class="way fs-26"></span>
                     <i class="link"></i>
                 </div>
-                
+
             </div>
             <div class="cell-inp">
                 <p class="fs-28">
@@ -32,51 +32,171 @@
                 </p>
                 <div class="widInp f-flex-fs-c">
                     <span class="fs-36">￥</span>
-                    <input class="fs-28" type="text" placeholder="最高可提现100元">
+                    <input class="money fs-28" type="number"  step="0.01" min="0.01" placeholder="最高可提现100元">
+                </div>
+                <div class="fee fs-26">
+                    收取<span style="color: #ff4d00;">5%</span>的手续费,实际到账<span class="actual" style="color: #ff4d00;"></span>
                 </div>
                 <div class="submit f-bgColor-578 fs-28 f-bor-rad">
                     提现
                 </div>
             </div>
         </section>
-        <section>
-            
-        </section>
-        
+        <div class="m-popup">
+            <div class="title">
+                <p class="fs-32">选择申请提现到</p>
+                <span class="close"></span>
+            </div>
+            <div class="wayList">
+                <div class="item f-flex-wrap">
+                    <div class="f-flex-wrap">
+                        <i class="wxpay"></i>
+                        <span class="fs-28">微信钱包</span>
+                    </div>
+                    <i class="link"></i>
+                </div>
+                <div class="item f-flex-wrap">
+                    <div class="f-flex-wrap">
+                        <i class="alipay"></i>
+                        <span class="fs-28">支付宝</span>
+                    </div>
+                    <i class="link"></i>
+                </div>
+                <div class="item f-flex-wrap">
+                    <div class="f-flex-wrap">
+                        <i class="bankcard"></i>
+                        <span class="fs-28">银行卡</span>
+                    </div>
+                    <i class="link"></i>
+                </div>
+            </div>
+        </div>
+
     </div>
     <script src="../js/rem.js"></script>
     <script src="../lib/zepto.min.js"></script>
     <script src="../js/frozen.js"></script>
     <script>
-        !function() {
-            var app = function() {
-                
+        !function () {
+            var app = function () {
+
                 this.wayEle = $('.way').eq(0);
                 this.chooseBtn = $('.choose').eq(0);
+                this.submitBtn = $('.submit').eq(0);
+                this.popup = $('.m-popup').eq(0);
+                this.close = $('.close').eq(0);
+                this.moneyInp = $('.money').eq(0);
+                this.popupMask = $('.popup-mask').eq(0);
                 this._bindEvent();
                 this.isWay();
             }
             app.prototype = {
-                _bindEvent: function() {
+                _bindEvent: function () {
                     var self = this;
-                    
-                    this.chooseBtn.on('tap', function() {
-                        alert(1)
+
+                    this.chooseBtn.on('tap', function () {
+                        self.popup.addClass('up')
+                        Mask.show()
+                    })
+                    this.close.on('tap', function () {
+                        self.popup.removeClass('up')
+                        Mask.hidden()
+                    })
+                    this.popupMask.on('tap', function () {
+                        if (self.popupMask.hasClass('mask-show')) {
+                            Mask.hidden()
+                            self.popup.removeClass('up')
+                        }
+                    })
+                    this.moneyInp.on('input', function () { 
+                        if ($(this).val().split(".").length > 1 && $(this).val().split(".")[1] == '00') {
+                            $(this).val(0)
+                        } else if ($(this).val().split(".").length > 1 && $(this).val().split(".")[1].length > 2) {
+                            $(this).val($(this).val().slice(0, -1))
+                        } else if ( $(this).val().split(".").length <= 1) {
+                            $(this).val( parseFloat($(this).val()) )
+                        }
+                        var int = Number($(this).val())*100
+                        $('.actual').html( (( int-(int*5)/100 )/100).toFixed(2) )    
+                    })
+                    this.submitBtn.on('tap', function () {
+                        if(self.wayEle.html()=='') {
+                            el = $.tips({
+                                content: '选择申请提现方式',
+                                stayTime: 2000,
+                                type: "warn"
+                            })
+                            return
+                        }
+                        
+                        if (self.moneyInp.val() < 0 && self.moneyInp.val() > 100) {
+                            //请求成功 dialog
+
+                            var dia = $.dialog({
+                                content: '提现申请提交成功,请耐心等待审核',
+                                button: ["取消", "确认"]
+                            });
+
+                            dia.on("dialog:action", function (e) {
+                                //0是取消 1是确认
+                                console.log(e.index)
+                            });
+                            dia.on("dialog:hide", function (e) {
+                                //dialog隐藏干嘛
+                                console.log("dialog hide")
+                            });
+
+
+                        } else {
+                            el = $.tips({
+                                content: '金额错误',
+                                stayTime: 2000,
+                                type: "warn"
+                            })
+                        }
                     })
                 },
-                isWay: function() {
+                isWay: function () {
                     //判断跳页接受的参数 赋给srt
-                    var srt
+                    var srt = '微信'
                     this.changeWay(srt)
                 },
-                changeWay: function(srt) {
+                changeWay: function (srt) {
+                    //显示到页面
                     this.wayEle.html(srt)
                 }
             }
 
+
+            /* 
+                弹出层构建函数
+            */
+            var mask = function () {
+                this.maskTpl = '<div class="zl popup-mask">' + '</div>',
+                    this._append()
+            }
+            mask.prototype = {
+                _append: function () {
+                    if (!$('.popup-mask').length) {
+                        $('.g-row').eq(0).append(this.maskTpl)
+                    }
+                },
+                show: function () {
+                    if ($('.popup-mask').length) {
+                        $('.popup-mask').addClass('mask-show')
+                    }
+                },
+                hidden: function () {
+                    if ($('.mask-show').length) {
+                        $('.mask-show').removeClass('mask-show')
+                    }
+                }
+            }
+
+            var Mask = new mask()
             new app()
 
-            
+
         }(window);
     </script>
 </body>
